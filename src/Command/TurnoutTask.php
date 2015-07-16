@@ -73,9 +73,7 @@ class TurnoutTask extends BuildTask {
 			define('COBBLER_CONFIG',  __DIR__ . '/../../config');
 		}
 		if (!defined('TWBS_PATH')) {
-			// 			define('TWBS_PATH', __DIR__ . '/../../../../vendor/twbs/bootstrap');
-			////@todo - remove this one!
-			define('TWBS_PATH', __DIR__ . '/../../../../../../vendor/twbs/bootstrap');
+			define('TWBS_PATH', __DIR__ . '/../../../../twbs/bootstrap');
 		}
 	}
 }

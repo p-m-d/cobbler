@@ -21,6 +21,6 @@
 		"psr-4": {
 			"Cobbler\\Test\\": "tests"
 		}
-	}
-
+	},
+	"bin": ["bin/cobbler"]
 }

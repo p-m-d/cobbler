@@ -2,9 +2,7 @@
 $autoloadPaths = [
 	__DIR__ . '/../../../autoload.php',
 	__DIR__ . '/../../vendor/autoload.php',
-	__DIR__ . '/../vendor/autoload.php',
-
-	__DIR__ . '/../../../../../vendor/autoload.php'//@todo - remove this one!
+	__DIR__ . '/../vendor/autoload.php'
 ];
 
 foreach ($autoloadPaths as $file) {
