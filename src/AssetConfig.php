@@ -10,6 +10,12 @@ class AssetConfig extends \MiniAsset\AssetConfig {
 	}
 
 	public function extensions() {
-		return ['css', 'js', 'eot', 'svg', 'ttf', 'woff', 'woff2'];
+		return [
+			'css', 'less',
+			'js',
+			'eot', 'ttf', 'woff', 'woff2',
+			'svg', 'png', 'jpg', 'jpeg', 'gif',
+			'html', 'text', 'md'
+		];
 	}
 }
