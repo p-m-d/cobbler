@@ -4,6 +4,7 @@ namespace Cobbler\Command;
 
 use MiniAsset\Cli\MiniAsset;
 use Cobbler\Command\TurnoutTask;
+use League\CLImate\Argument\Manager;
 
 class Cobbler extends MiniAsset {
 
@@ -29,6 +30,7 @@ class Cobbler extends MiniAsset {
 		if (empty($argv[0])) {
 			return parent::main($argv);
 		}
+		$this->bootstrapApp($argv);
 		switch ($argv[0]) {
 			case 'turnout':
 				return $this->turnout->main($argv);
@@ -50,6 +52,32 @@ class Cobbler extends MiniAsset {
 		$this->cli->out('- <green>turnout</green> Build assets.');
 		$this->cli->out('');
 		return parent::help();
+	}
+
+	protected function bootstrapApp(array $argv) {
+		$args = new Manager();
+		$args->add('shoelace', [
+			'prefix' => 's',
+			'longPrefix' => 'shoelace',
+		]);
+		$args->parse($argv);
+		if ($args->defined('shoelace')) {
+			$bootstrap = $args->get('shoelace');
+			$files = explode(',', $bootstrap);
+			foreach ($files as $file) {
+				require_once $file;
+			}
+		}
+
+		if (!defined('COBBLER_OUTPUT')) {
+			define('COBBLER_OUTPUT',  __DIR__ . '/../../output');
+		}
+		if (!defined('COBBLER_CONFIG')) {
+			define('COBBLER_CONFIG',  __DIR__ . '/../../config');
+		}
+		if (!defined('TWBS_PATH')) {
+			define('TWBS_PATH', __DIR__ . '/../../../../twbs/bootstrap');
+		}
 	}
 }
 

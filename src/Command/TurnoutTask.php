@@ -9,7 +9,9 @@ use Cobbler\AssetConfig;
 class TurnoutTask extends BuildTask {
 
 	public function execute() {
-		$this->bootstrapApp();
+		if ($this->cli->arguments->defined('bootstrap')) {
+			parent::bootstrapApp();
+		}
 		if ($this->cli->arguments->defined('list')) {
 			return $this->turnoutList();
 		}
@@ -70,20 +72,5 @@ class TurnoutTask extends BuildTask {
 				'noValue' => true
 			]
 		]);
-	}
-
-	protected function bootstrapApp() {
-		if ($this->cli->arguments->defined('bootstrap')) {
-			parent::bootstrapApp();
-		}
-		if (!defined('COBBLER_OUTPUT')) {
-			define('COBBLER_OUTPUT',  __DIR__ . '/../../output');
-		}
-		if (!defined('COBBLER_CONFIG')) {
-			define('COBBLER_CONFIG',  __DIR__ . '/../../config');
-		}
-		if (!defined('TWBS_PATH')) {
-			define('TWBS_PATH', __DIR__ . '/../../../../twbs/bootstrap');
-		}
 	}
 }
