@@ -20,8 +20,18 @@ class TurnoutTask extends BuildTask {
 		$config = $this->config();
 		$factory = new Factory($config);
 		foreach ($factory->assetCollection() as $target) {
+			if (!is_dir($target->outputDir())) {
+				if (!mkdir($target->outputDir(), 0777, true)) {
+					$name = $target->name();
+					$verbose = '<red>Skip building ' . $name . ' output path could not be created.</red>';
+					$this->verbose($verbose, '<red>E<red>');
+					continue;
+				}
+			}
 			$this->_buildTarget($factory, $target);
 		}
+		$this->cli->green('Complete');
+		return 0;
 	}
 
 	protected function turnoutList() {
@@ -67,7 +77,7 @@ class TurnoutTask extends BuildTask {
 			parent::bootstrapApp();
 		}
 		if (!defined('COBBLER_OUTPUT')) {
-			define('COBBLER_OUTPUT',  __DIR__ . '/../../cache');
+			define('COBBLER_OUTPUT',  __DIR__ . '/../../output');
 		}
 		if (!defined('COBBLER_CONFIG')) {
 			define('COBBLER_CONFIG',  __DIR__ . '/../../config');
